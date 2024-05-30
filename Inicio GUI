@@ -34,20 +34,29 @@ def display_kml_coordinates(filepath):
     # Extract latitude and longitude, ignore altitude
     lat_lon_points = []
     for coord in coordinates:
-        try:
-            lon, lat, _ = map(float, coord.text.strip().split(','))
-            lat_lon_points.append((lat, lon))
-        except ValueError as e:
-            print(f"Error processing coordinates: {coord.text.strip()}")
-            print(f"Error details: {e}")
+        coord_text = coord.text.strip()
+        coord_sets = coord_text.split()  # Split by whitespace to handle multiple coordinates in one string
+        for coord_set in coord_sets:
+            try:
+                lon, lat, _ = map(float, coord_set.split(','))
+                lat_lon_points.append((lat, lon))
+            except ValueError as e:
+                print(f"Error processing coordinates: {coord_set}")
+                print(f"Error details: {e}")
 
     # Create a map centered on the first coordinate
     if lat_lon_points:
         folium_map = folium.Map(location=lat_lon_points[0], zoom_start=13)
 
-        # Add points to the map
+        # Add circle markers to the map
         for point in lat_lon_points:
-            folium.Marker(location=point).add_to(folium_map)
+            folium.CircleMarker(
+                location=point,
+                radius=5,  # You can adjust the radius as needed
+                color='black',
+                fill=True,
+                fill_color='black'
+            ).add_to(folium_map)
 
         # Save the map to an HTML file and open it in the default web browser
         map_path = os.path.join(os.path.dirname(filepath), 'map.html')
