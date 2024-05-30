@@ -1,0 +1,30 @@
+import tkinter as tk
+
+# Create the main application window
+root = tk.Tk()
+root.title("Four Squares GUI")
+
+# Define the size of each square
+square_size = 200
+
+# Create and place the four squares
+cua1 = tk.Frame(root, width=square_size, height=square_size, bg="red")
+cua1.grid(row=0, column=0, padx=10, pady=10)
+
+cua2 = tk.Frame(root, width=square_size, height=square_size, bg="blue")
+cua2.grid(row=1, column=0, padx=10, pady=10)
+
+cua3 = tk.Frame(root, width=square_size, height=square_size, bg="green")
+cua3.grid(row=0, column=1, padx=10, pady=10)
+
+cua4 = tk.Frame(root, width=square_size, height=square_size, bg="yellow")
+cua4.grid(row=1, column=1, padx=10, pady=10)
+
+# Make sure the squares retain their size
+cua1.grid_propagate(False)
+cua2.grid_propagate(False)
+cua3.grid_propagate(False)
+cua4.grid_propagate(False)
+
+# Run the application
+root.mainloop()
