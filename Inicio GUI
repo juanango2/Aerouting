@@ -48,14 +48,16 @@ def display_kml_coordinates(filepath):
     if lat_lon_points:
         folium_map = folium.Map(location=lat_lon_points[0], zoom_start=13)
 
-        # Add circle markers to the map
+        # Add circle markers to the map with tooltips
         for point in lat_lon_points:
+            tooltip = f"Lat: {point[0]}, Lon: {point[1]}"
             folium.CircleMarker(
                 location=point,
                 radius=5,  # You can adjust the radius as needed
                 color='black',
                 fill=True,
-                fill_color='black'
+                fill_color='black',
+                tooltip=tooltip  # Add tooltip with coordinates
             ).add_to(folium_map)
 
         # Save the map to an HTML file and open it in the default web browser
